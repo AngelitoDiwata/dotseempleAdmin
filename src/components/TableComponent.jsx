@@ -65,8 +65,10 @@ export default function TableComponent({ tableData }) {
                                     Object.keys(tableData[0]).map((item) => {
                                         if (item === 'collections') {
                                             return null
+                                        } else if (item === 'handle') {
+                                            return <th className={`hover:font-bold hover:underline text-cyan-400 text-left transition-all ${item === 'connections' ? `font-bold text-2xl ${ record[item] < 1 ?'text-rose-600' : 'text-amber-500'}` : 'font-thin text-sm tracking-widest'}`} key={item}><a href={`https://twitter.com/${record[item].split('@')[1]}`} target="_blank">{record[item]}</a></th>
                                         } else if (item === 'connections') {
-                                            <th className={`text-center ${item === 'connections' ? `font-bold text-2xl ${ record[item] < 1 ?'text-rose-600' : 'text-amber-500'}` : 'font-thin text-sm tracking-widest'}`} key={item}>{record[item]}</th>
+                                            return <th className={`text-center ${item === 'connections' ? `font-bold text-2xl ${ record[item] < 1 ?'text-rose-600' : 'text-amber-500'}` : 'font-thin text-sm tracking-widest'}`} key={item}>{record[item]}</th>
                                         }
                                         return <td className={`text-center ${item === 'connections' ? `font-bold text-2xl ${ record[item] < 1 ?'text-rose-600' : 'text-amber-500'}` : 'font-thin text-sm tracking-widest'}`} key={item}>{record[item]}</td>
                                     })
