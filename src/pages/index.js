@@ -4,10 +4,12 @@ import { db } from '@/firebase'
 import { ref, onValue } from "firebase/database";
 import TableComponent from '@/components/TableComponent';
 import { useState, useEffect } from 'react';
+import Stats from '@/components/Stats';
 
 export default function Home() {
 
   const [list, setList] = useState([{}])
+  const [codes, setCodes] = useState([{}])
 
   useEffect(() => {
     onValue(ref(db), (snapshot) => {
@@ -16,7 +18,11 @@ export default function Home() {
       res.data !== undefined ? Object.values(res.data).map((entry) => {
         setList((oldArray) => [...oldArray, entry]);
       }) : setList([])
+      res.codes !== undefined ? Object.values(res.codes).map((entry) => {
+        setCodes((oldArray) => [...oldArray, entry]);
+      }) : setList([])
     });
+    
   }, []);
 
   return (
@@ -28,7 +34,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-       { list && <TableComponent tableData={list} />}
+        <Stats codes={codes} list={list} />
+        {list && <TableComponent tableData={list} />}
       </main>
     </>
   )
