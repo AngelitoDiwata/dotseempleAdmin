@@ -14,6 +14,7 @@ export default function Home() {
   useEffect(() => {
     onValue(ref(db), (snapshot) => {
       setList([]);
+      setCodes([]);
       const res = snapshot.val();
       res.data !== undefined ? Object.values(res.data).map((entry) => {
         setList((oldArray) => [...oldArray, entry]);

@@ -5,6 +5,8 @@ export default function Stats({ list, codes }) {
     const [unsubscribed, setUnsubscribed] = useState(0)
     const [inactive, setInactive ] = useState(0)
     useEffect(() => {
+
+        console.log(codes)
         const popSubd = list.filter((user) => {
             return user.connections > 0 && user.wallet !== '' && user.email !== ''
         }).length
@@ -56,7 +58,7 @@ export default function Stats({ list, codes }) {
                     ⌘
                 </div>
                 <div className="stat-title">CODES launched</div>
-                <div className="stat-value text-white">{codes.length}%</div>
+                <div className="stat-value text-white">{codes.length}</div>
                 <div className="stat-desc">so far</div>
             </div>
 
