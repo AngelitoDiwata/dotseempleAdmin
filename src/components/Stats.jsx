@@ -3,24 +3,18 @@ import React, { useEffect, useState } from 'react'
 export default function Stats({ list, codes }) {
     const [subscribed, setSubscribed] = useState(0)
     const [unsubscribed, setUnsubscribed] = useState(0)
-    const [inactive, setInactive ] = useState(0)
     useEffect(() => {
         const popSubd = list.filter((user) => {
-            return user.connections > 0 && user.wallet !== '' && user.email !== ''
+            return user.connections > 0 
         }).length
 
         const popUnSubd = list.filter((user) => {
-            return user.connections === 0 && user.wallet !== '' && user.email !== ''
-        }).length
-
-        const popInactive = list.filter((user) => {
-            return user.wallet === '' && user.email === ''
+            return user.connections === 0
         }).length
 
         const popTotal = list.length
         setSubscribed(Math.round((popSubd * 100) / popTotal))
         setUnsubscribed(Math.round((popUnSubd * 100) / popTotal))
-        setInactive(Math.round((popInactive * 100) / popTotal))
     }, [list])
     return (
         <div className="stats shadow w-full">
@@ -40,15 +34,6 @@ export default function Stats({ list, codes }) {
                 <div className="stat-title">Users not subscribed</div>
                 <div className="stat-value text-netral-800 dark:text-white">{unsubscribed}%</div>
                 <div className="stat-desc">not subscribed but registered</div>
-            </div>
-
-            <div className="stat">
-                <div className="stat-figure text-red-300 text-6xl">
-                !
-                </div>
-                <div className="stat-title">Users not active</div>
-                <div className="stat-value text-netral-800 dark:text-white">{inactive}%</div>
-                <div className="stat-desc">not registered {"(No email and wallet addy)"}</div>
             </div>
 
             <div className="stat">
