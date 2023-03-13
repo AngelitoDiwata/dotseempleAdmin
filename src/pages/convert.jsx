@@ -9,8 +9,6 @@ import swal from 'sweetalert';
 export default function convert() {
 
     const [list, setList] = useState([])
-    const [alertStatus, setAlertStatus] = useState(false)
-    const [errorStatus, setErrorStatus] = useState(false)
 
     const setAlert = (title, message) => {
         swal({
@@ -66,6 +64,7 @@ export default function convert() {
                 await set(ref(db, `/data/${item.uuid}`), item)
             })
             setAlert('', `${list.length} items added to the database!`)
+            setList([])
         } else {
             setAlert('', 'Please select a CSV file!')
         }
@@ -81,16 +80,16 @@ export default function convert() {
             </Head>
             <main className='w-full'>
                 <Nav />
-                <div className='p-3'>
-                    <div className='w-full flex flex-row items-center justify-between my-2 mx-2 space-x-3'>
-                        <div className='flex flex-row items-center justify-center'>
+                <div className='p-3 m-auto'>
+                    <div className='w-full m-auto flex flex-row items-center justify-around my-2 mx-2 space-x-3'>
+                        <div className='w-1/2 md:w-fit flex flex-col md:flex-row items-center justify-center'>
 
-                            <input onChange={getData} accept=".csv" type="file" className="file-input file-input-bordered w-full max-w-xs" />
-                            <span className='p-3 text-xs'>Use your handle CSVs directly to be <br /> formatted/appended to database</span>
+                            <input onChange={getData} accept=".csv" type="file" className="file-input file-input-sm md:file-input-lg file-input-bordered w-full max-w-xs" />
+                            <span className='p-3 text-xs'>Use your handle CSVs directly to be <br className='hidden md:visible' /> formatted/appended to database</span>
                         </div>
-                        <div className='flex flex-row items-center justify-center space-x-3 px-5'>
-                            <button onClick={() => submitData()} className="btn btn-primary">Append to DB</button>
-                            <button  onClick={() => submitData(true)} className="btn btn-secondary">Format DB</button>
+                        <div className='w-1/2 md:w-fit flex flex-col md:flex-row items-center justify-center space-x-0 space-y-3 md:space-y-0 md:space-x-3 px-5 m-auto'>
+                            <button onClick={() => submitData()} className="btn w-full btn-primary">Append to DB</button>
+                            {/* <button  onClick={() => submitData(true)} className="btn w-full btn-secondary">Format DB</button> */}
                         </div>
                     </div>
                     {list ? <TableComponent tableData={list} /> : <span>No file selected.</span>}
