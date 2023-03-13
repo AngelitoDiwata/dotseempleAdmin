@@ -22,7 +22,7 @@ export default function Home() {
         }) : setList([])
         res.codes !== undefined ? Object.values(res.codes).map((entry) => {
           setCodes((oldArray) => [...oldArray, entry]);
-        }) : setList([])
+        }) : setCodes([])
       } catch (_) {
 
       }
