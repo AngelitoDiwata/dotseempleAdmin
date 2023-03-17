@@ -56,7 +56,7 @@ export default function TableComponent({ tableData }) {
                         {
                             sortParser().filter((item) => {
                                 if (item.handle) {
-                                    return item.handle.includes(formModel.handle.toUpperCase() || '') && item.email.includes(formModel.email || '') && item.uuid.includes(formModel.uuid || '') && item.wallet.includes(formModel.wallet || '')
+                                    return item.handle.includes(formModel.handle && formModel.handle.toUpperCase() || '') && item.email.includes(formModel.email || '') && item.uuid.includes(formModel.uuid || '') && item.wallet.includes(formModel.wallet || '')
                                 }
                                 return true
                             }).map((record, index) => {
