@@ -12,6 +12,7 @@ export default function Nav() {
                     <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                         <li><Link href="convert">CSV to Metadata</Link></li>
                         <li><Link href="deploy">CODE management</Link></li>
+                        <li><Link href="quote">Quote of the day</Link></li>
                     </ul>
                 </div>
             </div>

@@ -78,12 +78,12 @@ export default function DotSeempleCodes() {
                 <Nav />
                 <div className='App w-full h-fit bg-black' >
                     <div className="sticky z-30 bg-black top-0 w-full m-auto flex flex-col md:flex-row items-start md:items-center justify-end py-5 space-y-3 md:space-x-3 space-x-0 md:space-y-0 px-10">
-                        <input placeholder="Code description" className="w-1/2 md:w-40 border border-white bg-black rounded-lg outline-white px-3 py-1" value={desc} onChange={(e) => changeHandler(e, setDesc)} />
-                        <input placeholder="Actual Code" className="w-full md:w-1/4 border border-white bg-black rounded-lg outline-white px-3 py-1" value={code} onChange={(e) => changeHandler(e, setCode)} />
-                        <input type="datetime-local" className="w-full md:w-1/4 border border-white bg-black rounded-lg outline-white px-3 py-1" onChange={(e) => changeHandler(e, setEndDate)} defaultValue={endDate} />
+                        <input placeholder="Code description" className="text-white w-1/2 md:w-40 border border-white bg-black rounded-lg outline-white px-3 py-1" value={desc} onChange={(e) => changeHandler(e, setDesc)} />
+                        <input placeholder="Actual Code" className="text-white w-full md:w-1/4 border border-white bg-black rounded-lg outline-white px-3 py-1" value={code} onChange={(e) => changeHandler(e, setCode)} />
+                        <input type="datetime-local" className="text-white w-full md:w-1/4 border border-white bg-black rounded-lg outline-white px-3 py-1" onChange={(e) => changeHandler(e, setEndDate)} defaultValue={endDate} />
                         <button className="w-full md:w-20 hover:scale-110 transition-all font-semibold border hover:font-neutral-900 hover:border-2 border-white bg-black rounded-lg outline-white px-3 py-1 text-white" onClick={submit}>submit</button>
                     </div>
-                    <div className='w-full h-screen bg-black flex flex-col items-center justify-start md:items-start md:grid md:grid-cols-2 lg:grid-cols-4 md:justify-center space-y-5 md:space-y-0 mx-0 my-10 md:mx-10 gap-2'>
+                    <div className='w-full px-5 md:px-10 mt-48 md:mt-0 h-screen bg-black flex flex-col items-center md:items-start md:grid md:grid-cols-2 lg:grid-cols-4 md:justify-center space-y-5 md:space-y-0 my-10 md:my-0 mx-auto content-start justify-center gap-5'>
                         {
                             validCodes.length > 0 ? validCodes.map((code) => <CodeCard key={code.code} name={code.name} code={code.code} date={code.ttl} />) : <span>Wow, O_o such empty.</span>
                         }

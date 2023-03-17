@@ -5,6 +5,7 @@ import TableComponent from '@/components/TableComponent';
 import { useState, useEffect } from 'react';
 import Stats from '@/components/Stats';
 import Nav from '@/components/Nav';
+import DupeDetector from '@/components/DupeDetector';
 
 export default function Home() {
 

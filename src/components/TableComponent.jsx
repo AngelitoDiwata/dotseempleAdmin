@@ -27,7 +27,7 @@ export default function TableComponent({ tableData }) {
     }
 
     return (
-        <div className='w-full'>
+        <div className='w-full h-screen'>
             <div className='w-full grid grid-cols-2 gap-2 md:flex md:flex-row items-start justify-start my-3 md:space-x-3'>
                 {
                     Object.keys(tableData[0] || {}).map((item) => {
@@ -41,7 +41,7 @@ export default function TableComponent({ tableData }) {
                 }
 
             </div>
-            <div className="w-full overflow-x-auto">
+            <div className="w-full overflow-x-auto h-screen overflow-auto">
                 <table className="table w-full">
                     <thead>
                         <tr>
@@ -56,7 +56,7 @@ export default function TableComponent({ tableData }) {
                         {
                             sortParser().filter((item) => {
                                 if (item.handle) {
-                                    return item.handle.includes(formModel.handle || '') && item.email.includes(formModel.email || '') && item.uuid.includes(formModel.uuid || '') && item.wallet.includes(formModel.wallet || '')
+                                    return item.handle.includes(formModel.handle.toUpperCase() || '') && item.email.includes(formModel.email || '') && item.uuid.includes(formModel.uuid || '') && item.wallet.includes(formModel.wallet || '')
                                 }
                                 return true
                             }).map((record, index) => {
