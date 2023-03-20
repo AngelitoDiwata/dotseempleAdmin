@@ -8,10 +8,11 @@ export default function TableComponent({ tableData }) {
     const [formModel, setFormModel] = useState({})
 
     useEffect(() => {
+        console.log('re-rendered table')
         if (tableData) {
             setSortProp(Object.keys(tableData[0] || {})[0])
         }
-    }, [tableData])
+    }, [])
 
     const sortParser = () => {
         var result = tableData.sort(function (_a, _b) {
@@ -56,7 +57,7 @@ export default function TableComponent({ tableData }) {
                         {
                             sortParser().filter((item) => {
                                 if (item.handle) {
-                                    return item.handle.includes(formModel.handle && formModel.handle.toUpperCase() || '') && item.email.includes(formModel.email || '') && item.uuid.includes(formModel.uuid || '') && item.wallet.includes(formModel.wallet || '')
+                                    return item.handle.toUpperCase().includes(formModel.handle && formModel.handle.toUpperCase() || '') && item.email.includes(formModel.email || '') && item.uuid.includes(formModel.uuid || '') && item.wallet.includes(formModel.wallet || '')
                                 }
                                 return true
                             }).map((record, index) => {

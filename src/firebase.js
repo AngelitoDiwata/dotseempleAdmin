@@ -26,6 +26,7 @@ const firebaseConfig_prod = {
 //     appId: "1:276412099994:web:e288744d41f03c89fede23",
 //     measurementId: "G-0Q5PXN96WY"
 // };
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig_prod);
 export const db = getDatabase(app)

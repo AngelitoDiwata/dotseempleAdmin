@@ -5,6 +5,7 @@ import { React, useState, useEffect } from 'react'
 import { db } from '@/firebase'
 import { set, ref, onValue, remove } from "firebase/database";
 import swal from 'sweetalert';
+import CodeTable from '@/components/CodeTable';
 
 export default function DotSeempleCodes() {
     const [validCodes, setValidCodes] = useState([])
@@ -78,14 +79,14 @@ export default function DotSeempleCodes() {
                 <Nav />
                 <div className='App w-full h-fit bg-black' >
                     <div className="sticky z-30 bg-black top-0 w-full m-auto flex flex-col md:flex-row items-start md:items-center justify-end py-5 space-y-3 md:space-x-3 space-x-0 md:space-y-0 px-10">
-                        <input placeholder="Code description" className="text-white w-1/2 md:w-40 border border-white bg-black rounded-lg outline-white px-3 py-1" value={desc} onChange={(e) => changeHandler(e, setDesc)} />
-                        <input placeholder="Actual Code" className="text-white w-full md:w-1/4 border border-white bg-black rounded-lg outline-white px-3 py-1" value={code} onChange={(e) => changeHandler(e, setCode)} />
-                        <input type="datetime-local" className="text-white w-full md:w-1/4 border border-white bg-black rounded-lg outline-white px-3 py-1" onChange={(e) => changeHandler(e, setEndDate)} defaultValue={endDate} />
-                        <button className="w-full md:w-20 hover:scale-110 transition-all font-semibold border hover:font-neutral-900 hover:border-2 border-white bg-black rounded-lg outline-white px-3 py-1 text-white" onClick={submit}>submit</button>
+                        <input placeholder="Code description" className="text-white w-full md:w-40 border border-white bg-black input input-bordered" value={desc} onChange={(e) => changeHandler(e, setDesc)} />
+                        <input placeholder="Actual Code" className="text-white w-full md:w-1/4 border border-white bg-black input input-bordered" value={code} onChange={(e) => changeHandler(e, setCode)} />
+                        <input type="datetime-local" className="text-white w-full md:w-1/4 border border-white bg-black input input-bordered" onChange={(e) => changeHandler(e, setEndDate)} defaultValue={endDate} />
+                        <button className="w-full md:w-auto hover:scale-110 transition-all font-semibold border hover:font-neutral-900 hover:border-2 border-white bg-black input input-bordered text-white" onClick={submit}>submit</button>
                     </div>
-                    <div className='w-full px-5 md:px-10 mt-48 md:mt-0 h-screen bg-black flex flex-col items-center md:items-start md:grid md:grid-cols-2 lg:grid-cols-4 md:justify-center space-y-5 md:space-y-0 my-10 md:my-0 mx-auto content-start justify-center gap-5'>
+                    <div className='w-full h-screen flex flex-col items-start justify-start'>
                         {
-                            validCodes.length > 0 ? validCodes.map((code) => <CodeCard key={code.code} name={code.name} code={code.code} date={code.ttl} />) : <span>Wow, O_o such empty.</span>
+                            validCodes.length > 0 ? <CodeTable listData={validCodes} />: <div className='col-span-4 w-full flex flex-row items-center justify-center'>Wow, O_o such empty.</div>
                         }
                     </div>
                 </div>

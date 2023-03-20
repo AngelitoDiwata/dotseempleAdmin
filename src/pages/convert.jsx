@@ -44,7 +44,7 @@ export default function convert() {
                 setList(fr.result.split('\r\n').map((item) => {
                     return {
                         uuid: window.crypto.randomUUID(),
-                        handle: item,
+                        handle: item.toUpperCase(),
                         connections: 0,
                         email: '',
                         wallet: ''
