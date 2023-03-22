@@ -14,6 +14,7 @@
     "@mui/material": "^5.11.12",
     "@mui/styled-engine-sc": "^5.11.11",
     "@mui/x-data-grid": "^6.0.0",
+    "crypto-js": "^4.1.1",
     "daisyui": "^2.51.3",
     "firebase": "^9.17.2",
     "next": "13.2.3",

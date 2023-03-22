@@ -1,3 +1,4 @@
+import { encryptHandle } from '@/mixins'
 import React, { useEffect, useState } from 'react'
 
 export default function TableComponent({ tableData }) {
@@ -6,6 +7,7 @@ export default function TableComponent({ tableData }) {
     const [sortProp, setSortProp] = useState('')
     const [asc, setAsc] = useState(false)
     const [formModel, setFormModel] = useState({})
+    const domain = 'dotseemple-ego-dev.vercel.app'
 
     useEffect(() => {
         console.log('re-rendered table')
@@ -32,7 +34,7 @@ export default function TableComponent({ tableData }) {
             <div className='w-full grid grid-cols-2 gap-2 md:flex md:flex-row items-start justify-start my-3 md:space-x-3'>
                 {
                     Object.keys(tableData[0] || {}).map((item) => {
-                        return item !== 'collections' && item !== 'email' && item !== 'wallet'  && item !== 'connections' && <div key={item} className="form-control w-full md:w-1/6">
+                        return item !== 'collections' && item !== 'email' && item !== 'bio' && item !== 'role' && item !== 'wallet' && item !== 'connections' && <div key={item} className="form-control w-full md:w-1/6">
                             <label className="label">
                                 <span className="label-text">Sort by {item}</span>
                             </label>
@@ -48,9 +50,11 @@ export default function TableComponent({ tableData }) {
                         <tr>
                             {
                                 Object.keys(tableData[0] || {}).map((item) => {
-                                    return item !== 'collections' && item !== 'email' && item !== 'wallet' && <th key={item} className='cursor-pointer text-center text-neutral-600 dark:text-white  transition-all dark:hover:bg-neutral-900 hover:text-black' onClick={() => { setAsc(!asc); setSortProp(item) }}>{item}</th>
+                                    return item !== 'collections' && item !== 'bio' && item !== 'role' && item !== 'email' && item !== 'wallet' && <th key={item} className='cursor-pointer text-center text-neutral-600 dark:text-white  transition-all dark:hover:bg-neutral-900 hover:text-black' onClick={() => { setAsc(!asc); setSortProp(item) }}>{item}</th>
                                 })
+
                             }
+                            <th>Link</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,15 +67,18 @@ export default function TableComponent({ tableData }) {
                             }).map((record, index) => {
                                 return <tr key={index}>
                                     {
-                                        Object.keys(tableData[0]).map((item) => {
-                                            if (item === 'collections' || item === 'email' || item === 'wallet' ) {
+                                        Object.keys(tableData[0]).map((item, ind) => {
+                                            if (item === 'collections' || item === 'bio' || item === 'role' || item === 'email' || item === 'wallet') {
                                                 return null
                                             } else if (item === 'handle') {
-                                                return <th className={`hover:font-bold hover:underline text-cyan-400 text-left transition-all ${item === 'connections' ? `font-bold text-2xl ${record[item] < 1 ? 'text-rose-600' : 'text-amber-500'}` : 'font-thin text-sm tracking-widest'}`} key={item}><a href={`https://twitter.com/${record[item].split('@')[1]}`} target="_blank">{record[item]}</a></th>
+                                                return <td className={`hover:font-bold hover:underline text-cyan-400 text-left transition-all ${item === 'connections' ? `font-bold text-2xl ${record[item] < 1 ? 'text-rose-600' : 'text-amber-500'}` : 'font-thin text-sm tracking-widest'}`} key={item}><a href={`https://twitter.com/${record[item].split('@')[1]}`} target="_blank">{record[item]}</a></td>
                                             } else if (item === 'connections') {
-                                                return <th className={`text-center ${item === 'connections' ? `font-bold text-2xl ${record[item] < 1 ? 'text-rose-600' : 'text-amber-500'}` : 'font-thin text-sm tracking-widest'}`} key={item}>{record[item]}</th>
+                                                return <td className={`text-center ${item === 'connections' ? `font-bold text-2xl ${record[item] < 1 ? 'text-rose-600' : 'text-amber-500'}` : 'font-thin text-sm tracking-widest'}`} key={item}>{record[item]}</td>
                                             }
-                                            return <td className={`text-center ${item === 'connections' ? `font-bold text-2xl ${record[item] < 1 ? 'text-rose-600' : 'text-amber-500'}` : 'font-thin text-sm tracking-widest'}`} key={item}>{record[item]}</td>
+                                            return <>
+                                             <td className={`text-center ${item === 'connections' ? `font-bold text-2xl ${record[item] < 1 ? 'text-rose-600' : 'text-amber-500'}` : 'font-thin text-sm tracking-widest'}`} key={item}>{record[item]}</td>
+                                             <td className={`hover:font-bold hover:underline text-cyan-400 text-left transition-all ${item === 'connections' ? `font-bold text-2xl ${record[item] < 1 ? 'text-rose-600' : 'text-amber-500'}` : 'font-thin text-sm tracking-widest'}`} key={ind}><a href={`http://${domain}/register/${encryptHandle(record.handle.toUpperCase())}`} target="_blank">{'Register link'}</a></td>
+                                            </>
                                         })
                                     }
                                 </tr>
