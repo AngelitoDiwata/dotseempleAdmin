@@ -54,7 +54,7 @@ export default function TableComponent({ tableData }) {
                                 })
 
                             }
-                            {/* <th>Link</th> */}
+                            <th>Link</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,7 +77,7 @@ export default function TableComponent({ tableData }) {
                                             }
                                             return <>
                                              <td className={`text-center ${item === 'connections' ? `font-bold text-2xl ${record[item] < 1 ? 'text-rose-600' : 'text-amber-500'}` : 'font-thin text-sm tracking-widest'}`} key={item}>{record[item]}</td>
-                                             {/* <td className={`hover:font-bold hover:underline text-cyan-400 text-left transition-all ${item === 'connections' ? `font-bold text-2xl ${record[item] < 1 ? 'text-rose-600' : 'text-amber-500'}` : 'font-thin text-sm tracking-widest'}`} key={ind}><a href={`http://${domain}/register/${encryptHandle(record.handle.toUpperCase())}`} target="_blank">{'Register link'}</a></td> */}
+                                             <td className={`hover:font-bold hover:underline text-cyan-400 text-left transition-all ${item === 'connections' ? `font-bold text-2xl ${record[item] < 1 ? 'text-rose-600' : 'text-amber-500'}` : 'font-thin text-sm tracking-widest'}`} key={ind}><a href={`http://${domain}/register/${encryptHandle(record.handle.toUpperCase())}`} target="_blank">{'Register link'}</a></td>
                                             </>
                                         })
                                     }
