@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database"
+import {get, getDatabase, onValue, ref, update } from "firebase/database"
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth"
 
 /**
@@ -30,10 +30,25 @@ const firebaseConfig_prod = {
     measurementId: "G-0Q5PXN96WY"
 };
 
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig_prod);
 export const db = getDatabase(app)
 export const auth = getAuth(app)
+
+
+export const resetAllPoints = () => {
+    onValue(ref(db), (snapshot) => {
+        const res = snapshot.val();
+        try {
+            Object.values(res.data).map((entry) => {
+                update(ref(db, `/data/${entry.uuid}`), { collections: [], connections: 0, email: '', wallet: '' })
+            })
+        } catch (_) {
+
+        }
+    });
+}
 
 export async function signIn(email, password) {
     return await signInWithEmailAndPassword(auth, email, password)

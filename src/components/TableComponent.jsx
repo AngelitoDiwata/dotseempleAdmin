@@ -1,3 +1,4 @@
+import { resetAllPoints } from '@/firebase'
 import { encryptHandle } from '@/mixins'
 import React, { useEffect, useState } from 'react'
 
@@ -7,6 +8,10 @@ export default function TableComponent({ tableData }) {
     const [sortProp, setSortProp] = useState('')
     const [asc, setAsc] = useState(false)
     const [formModel, setFormModel] = useState({})
+    /**
+     * TODO
+     * PRODUCTION DOMAIN
+     */
     const domain = 'dotseemple-ego-dev.vercel.app'
 
     useEffect(() => {
@@ -29,6 +34,10 @@ export default function TableComponent({ tableData }) {
         return result
     }
 
+    const reset = () => {
+        resetAllPoints()
+    }
+
     return (
         <div className='w-full h-screen'>
             <div className='w-full grid grid-cols-2 gap-2 md:flex md:flex-row items-start justify-start my-3 md:space-x-3'>
@@ -42,7 +51,6 @@ export default function TableComponent({ tableData }) {
                         </div>
                     })
                 }
-
             </div>
             <div className="w-full overflow-x-auto h-screen overflow-auto">
                 <table className="table w-full">
@@ -50,7 +58,7 @@ export default function TableComponent({ tableData }) {
                         <tr>
                             {
                                 Object.keys(tableData[0] || {}).map((item) => {
-                                    return item !== 'collections' && item !== 'bio' && item !== 'role' && item !== 'email' && item !== 'wallet' && <th key={item} className='cursor-pointer text-center text-neutral-600 dark:text-white  transition-all dark:hover:bg-neutral-900 hover:text-black' onClick={() => { setAsc(!asc); setSortProp(item) }}>{item}</th>
+                                    return item !== 'collections' && item !== 'bio' && item !== 'role' && item !== 'wallet' && <th key={item} className='cursor-pointer text-center text-neutral-600 dark:text-white  transition-all dark:hover:bg-neutral-900 hover:text-black' onClick={() => { setAsc(!asc); setSortProp(item) }}>{item}</th>
                                 })
 
                             }
@@ -67,20 +75,19 @@ export default function TableComponent({ tableData }) {
                             }).map((record, index) => {
                                 return <tr key={index}>
                                     {
-                                        Object.keys(tableData[0]).map((item, ind) => {
-                                            if (item === 'collections' || item === 'bio' || item === 'role' || item === 'email' || item === 'wallet') {
+                                        Object.keys(tableData[0]).map((item) => {
+                                            if (item === 'collections' || item === 'bio' || item === 'role' || item === 'wallet') {
                                                 return null
                                             } else if (item === 'handle') {
                                                 return <td className={`hover:font-bold hover:underline text-cyan-400 text-left transition-all ${item === 'connections' ? `font-bold text-2xl ${record[item] < 1 ? 'text-rose-600' : 'text-amber-500'}` : 'font-thin text-sm tracking-widest'}`} key={item}><a href={`https://twitter.com/${record[item].split('@')[1]}`} target="_blank">{record[item]}</a></td>
                                             } else if (item === 'connections') {
                                                 return <td className={`text-center ${item === 'connections' ? `font-bold text-2xl ${record[item] < 1 ? 'text-rose-600' : 'text-amber-500'}` : 'font-thin text-sm tracking-widest'}`} key={item}>{record[item]}</td>
+                                            } else if (item === 'email' || item === 'handle' || item === 'uuid') {
+                                                return <td className={`text-center ${item === 'connections' ? `font-bold text-2xl ${record[item] < 1 ? 'text-rose-600' : 'text-amber-500'}` : 'font-thin text-sm tracking-widest'}`} key={item}>{record[item]}</td>
                                             }
-                                            return <>
-                                             <td className={`text-center ${item === 'connections' ? `font-bold text-2xl ${record[item] < 1 ? 'text-rose-600' : 'text-amber-500'}` : 'font-thin text-sm tracking-widest'}`} key={item}>{record[item]}</td>
-                                             <td className={`hover:font-bold hover:underline text-cyan-400 text-left transition-all ${item === 'connections' ? `font-bold text-2xl ${record[item] < 1 ? 'text-rose-600' : 'text-amber-500'}` : 'font-thin text-sm tracking-widest'}`} key={ind}>{ record.email.length > 0 ? <div className="badge badge-accent">Registered!</div>: <a href={`http://${domain}/register/${encryptHandle(record.handle.toUpperCase())}`} target="_blank">{'Register link'}</a>}</td>
-                                            </>
                                         })
                                     }
+                                    <td className={`text-cyan-400`} key={index}>{record.email && record.email.length > 0 ? <div className="badge badge-accent">Registered!</div> : <a href={`http://${domain}/register/${encryptHandle(record.handle && record.handle.toUpperCase())}`} target="_blank">{'Register link'}</a>}</td>
                                 </tr>
                             })
                         }
