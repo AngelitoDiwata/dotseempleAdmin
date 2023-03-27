@@ -11,7 +11,7 @@ export default function login() {
 
     const submit = (e) => {
         e.preventDefault()
-        if (username.trim().length > 0 && username === 'dotseemple@gmail.com' && password.trim().length > 0 && password === 'password123') {
+        if (username.trim().length > 0 && username.toLowerCase() === 'dotseemple@gmail.com' && password.trim().length > 0 && password === 'password123') {
             signIn(username, password).then(() => {
                 setAlert('', 'Welcome, Dot!')
                 router.push('/')
