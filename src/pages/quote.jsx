@@ -2,12 +2,17 @@ import CodeCard from '@/components/CodeCard'
 import Head from 'next/head'
 import Nav from '@/components/Nav';
 import { React, useState, useEffect } from 'react'
-import { db } from '@/firebase'
+import { auth, db } from '@/firebase'
 import { set, ref, onValue, remove, update } from "firebase/database";
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useRouter } from 'next/router';
+
 import swal from 'sweetalert';
 
 export default function DotSeempleCodes() {
     const [quote, setQuote] = useState('')
+    const [user] = useAuthState(auth)
+    const router = useRouter()
 
     useEffect(() => {
         onValue(ref(db, 'QOTD'), (snapshot) => {
@@ -17,6 +22,18 @@ export default function DotSeempleCodes() {
             }
         });
     }, []);
+
+    const checkIfValidAdmin = (user) => {
+        if (user.email !== 'dotseemple@gmail.com') {
+            router.push('/login')
+        }
+    }
+
+    useEffect(() => {
+        if (user !== null) { checkIfValidAdmin(user) } else {
+            router.push('/login')
+        }
+    }, [user])
 
     const submit = () => {
         update(ref(db), { QOTD: quote})

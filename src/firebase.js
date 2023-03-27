@@ -54,4 +54,6 @@ export async function signIn(email, password) {
     return await signInWithEmailAndPassword(auth, email, password)
 }
 
-signIn('dotseemple@gmail.com', 'password123')
+export async function userSignout() {
+    return await signOut(auth)
+}

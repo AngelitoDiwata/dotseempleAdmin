@@ -1,17 +1,20 @@
-import CodeCard from '@/components/CodeCard'
 import Head from 'next/head'
 import Nav from '@/components/Nav';
 import { React, useState, useEffect } from 'react'
-import { db } from '@/firebase'
+import { auth, db } from '@/firebase'
 import { set, ref, onValue, remove } from "firebase/database";
 import swal from 'sweetalert';
 import CodeTable from '@/components/CodeTable';
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useRouter } from 'next/router';
 
 export default function DotSeempleCodes() {
     const [validCodes, setValidCodes] = useState([])
     const [desc, setDesc] = useState('')
     const [code, setCode] = useState('')
     const [endDate, setEndDate] = useState('')
+    const [user] = useAuthState(auth)
+    const router = useRouter()
     const changeHandler = (e, handler) => {
         handler(e.target.value)
     }
@@ -42,6 +45,20 @@ export default function DotSeempleCodes() {
             }
         });
     }, []);
+
+
+    const checkIfValidAdmin = (user) => {
+        if (user.email !== 'dotseemple@gmail.com') {
+            router.push('/login')
+        }
+    }
+
+    useEffect(() => {
+        if (user !== null) { checkIfValidAdmin(user) } else {
+            router.push('/login')
+        }
+    }, [user])
+
 
     const submit = () => {
         if (new Date(endDate) < new Date() || endDate === '') {
@@ -86,7 +103,7 @@ export default function DotSeempleCodes() {
                     </div>
                     <div className='w-full h-screen flex flex-col items-start justify-start'>
                         {
-                            validCodes.length > 0 ? <CodeTable listData={validCodes} />: <div className='col-span-4 w-full flex flex-row items-center justify-center'>Wow, O_o such empty.</div>
+                            validCodes.length > 0 ? <CodeTable listData={validCodes} /> : <div className='col-span-4 w-full flex flex-row items-center justify-center'>Wow, O_o such empty.</div>
                         }
                     </div>
                 </div>

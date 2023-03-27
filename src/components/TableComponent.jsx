@@ -15,7 +15,6 @@ export default function TableComponent({ tableData }) {
     const domain = 'dotseemple-ego-dev.vercel.app'
 
     useEffect(() => {
-        console.log('re-rendered table')
         if (tableData) {
             setSortProp(Object.keys(tableData[0] || {})[0])
         }

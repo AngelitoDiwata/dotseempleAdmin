@@ -1,7 +1,15 @@
+import { userSignout } from '@/firebase'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
 
 export default function Nav() {
+    const router = useRouter()
+    const signOut = () => {
+        userSignout().then(() => {
+            router.push('/login')
+        }) 
+    }
     return (
         <div className="navbar bg-base-300 text-white">
             <div className="navbar-start">
@@ -13,6 +21,7 @@ export default function Nav() {
                         <li><Link href="convert">CSV to Metadata</Link></li>
                         <li><Link href="deploy">CODE management</Link></li>
                         <li><Link href="quote">Quote of the day</Link></li>
+                        <li><span onClick={() => signOut()}>Signout</span></li>
                     </ul>
                 </div>
             </div>

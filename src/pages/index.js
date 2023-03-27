@@ -1,15 +1,19 @@
 import Head from 'next/head'
-import { db } from '@/firebase'
+import { auth, db } from '@/firebase'
 import { ref, onValue } from "firebase/database";
 import TableComponent from '@/components/TableComponent';
 import { useState, useEffect } from 'react';
 import Stats from '@/components/Stats';
 import Nav from '@/components/Nav';
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useRouter } from 'next/router';
 
 export default function Home() {
 
   const [list, setList] = useState([{}])
   const [codes, setCodes] = useState([{}])
+  const [user] = useAuthState(auth)
+  const router = useRouter()
 
   useEffect(() => {
     onValue(ref(db), (snapshot) => {
@@ -29,6 +33,18 @@ export default function Home() {
     });
 
   }, []);
+
+  const checkIfValidAdmin = (user) => {
+    if (user.email !== 'dotseemple@gmail.com') {
+      router.push('/login')
+    }
+  }
+
+  useEffect(() => {
+    if (user !== null) { checkIfValidAdmin(user) } else {
+      router.push('/login')
+    }
+  }, [user])
 
   return (
     <>

@@ -1,14 +1,30 @@
 import Head from 'next/head'
 import TableComponent from '@/components/TableComponent';
-import { db } from '@/firebase'
+import { auth, db } from '@/firebase'
 import { set, ref, remove } from "firebase/database";
 import Nav from '@/components/Nav';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import swal from 'sweetalert';
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useRouter } from 'next/router';
 
 export default function convert() {
 
     const [list, setList] = useState([])
+    const [user] = useAuthState(auth)
+    const router = useRouter()
+    
+    const checkIfValidAdmin = (user) => {
+        if (user.email !== 'dotseemple@gmail.com') {
+            router.push('/login')
+        }
+    }
+
+    useEffect(() => {
+        if (user !== null) { checkIfValidAdmin(user) } else {
+            router.push('/login')
+        }
+    }, [user])
 
     const setAlert = (title, message) => {
         swal({
