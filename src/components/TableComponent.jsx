@@ -39,7 +39,7 @@ export default function TableComponent({ tableData }) {
     }
 
     return (
-        <div className='w-full h-screen'>
+        <div className='w-full h-fit'>
             <div className='w-full grid grid-cols-2 gap-2 md:flex md:flex-row items-start justify-start my-3 md:space-x-3'>
                 {
                     Object.keys(tableData[0] || {}).map((item) => {
@@ -52,13 +52,13 @@ export default function TableComponent({ tableData }) {
                     })
                 }
             </div>
-            <div className="w-full overflow-x-auto h-screen overflow-auto">
+            <div className="w-full overflow-x-auto h-96 overflow-auto">
                 <table className="table w-full">
-                    <thead>
+                    <thead className='sticky top-0'>
                         <tr>
                             {
                                 Object.keys(tableData[0] || {}).map((item) => {
-                                    return item !== 'collections' && item !== 'bio' && item !== 'role' && item !== 'wallet' && <th key={item} className='cursor-pointer text-center text-neutral-600 dark:text-white  transition-all dark:hover:bg-neutral-900 hover:text-black' onClick={() => { setAsc(!asc); setSortProp(item) }}>{item}</th>
+                                    return item !== 'collections' && item !== 'bio' && item !== 'role' && item !== 'wallet' && <td key={item} className='cursor-pointer text-center text-neutral-600 dark:text-white  transition-all dark:hover:bg-neutral-900 hover:text-white' onClick={() => { setAsc(!asc); setSortProp(item) }}>{item}</td>
                                 })
 
                             }

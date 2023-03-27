@@ -75,7 +75,7 @@ export default function DotSeempleCodes() {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <main className='w-full'>
+            <main className='w-full bg-black text-white'>
                 <Nav />
                 <div className='App w-full h-fit bg-black' >
                     <div className="sticky z-30 bg-black top-0 w-full m-auto flex flex-col md:flex-row items-start md:items-center justify-end py-5 space-y-3 md:space-x-3 space-x-0 md:space-y-0 px-10">

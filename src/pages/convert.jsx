@@ -78,7 +78,7 @@ export default function convert() {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <main className='w-full'>
+            <main className='w-full text-white bg-black'>
                 <Nav />
                 <div className='p-3 m-auto'>
                     <div className='w-full m-auto flex flex-row items-center justify-around my-2 mx-2 space-x-3'>

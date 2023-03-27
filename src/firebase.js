@@ -54,4 +54,4 @@ export async function signIn(email, password) {
     return await signInWithEmailAndPassword(auth, email, password)
 }
 
-signIn('diwataangelito@gmail.com', 'password123')
+signIn('dotseemple@gmail.com', 'password123')

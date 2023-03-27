@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function Nav() {
     return (
-        <div className="navbar bg-base-300">
+        <div className="navbar bg-base-300 text-white">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -17,7 +17,7 @@ export default function Nav() {
                 </div>
             </div>
             <div className="navbar-center">
-                <Link href="/" className="btn btn-ghost normal-case text-xl">Dotseemple Admin</Link>
+                <Link href="/" className="btn btn-ghost normal-case text-xl">⦿ Admin</Link>
             </div>
             <div className="navbar-end">
             </div>
