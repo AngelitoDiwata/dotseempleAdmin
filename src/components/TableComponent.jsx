@@ -12,7 +12,7 @@ export default function TableComponent({ tableData }) {
      * TODO
      * PRODUCTION DOMAIN
      */
-    const domain = 'dotseemple.vercel.app'
+    const domain = 'dotseemple.art'
 
     useEffect(() => {
         if (tableData) {
