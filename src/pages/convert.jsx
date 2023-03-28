@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import swal from 'sweetalert';
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useRouter } from 'next/router';
+import { creds } from '@/mixins';
 
 export default function convert() {
 
@@ -15,7 +16,7 @@ export default function convert() {
     const router = useRouter()
     
     const checkIfValidAdmin = (user) => {
-        if (user.email !== 'dotseemple@gmail.com') {
+        if (user.email !== creds.superuser) {
             router.push('/login')
         }
     }

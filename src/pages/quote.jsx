@@ -8,6 +8,7 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { useRouter } from 'next/router';
 
 import swal from 'sweetalert';
+import { creds } from '@/mixins';
 
 export default function DotSeempleCodes() {
     const [quote, setQuote] = useState('')
@@ -24,7 +25,7 @@ export default function DotSeempleCodes() {
     }, []);
 
     const checkIfValidAdmin = (user) => {
-        if (user.email !== 'dotseemple@gmail.com') {
+        if (user.email !== creds.superuser) {
             router.push('/login')
         }
     }

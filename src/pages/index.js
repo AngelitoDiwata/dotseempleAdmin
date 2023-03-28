@@ -7,6 +7,7 @@ import Stats from '@/components/Stats';
 import Nav from '@/components/Nav';
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useRouter } from 'next/router';
+import { creds } from '@/mixins';
 
 export default function Home() {
 
@@ -35,7 +36,7 @@ export default function Home() {
   }, []);
 
   const checkIfValidAdmin = (user) => {
-    if (user.email !== 'dotseemple@gmail.com') {
+    if (user.email !== creds.superuser) {
       router.push('/login')
     }
   }

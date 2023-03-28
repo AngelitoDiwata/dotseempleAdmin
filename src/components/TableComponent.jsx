@@ -1,5 +1,5 @@
 import { resetAllPoints } from '@/firebase'
-import { encryptHandle } from '@/mixins'
+import { creds, encryptHandle } from '@/mixins'
 import React, { useEffect, useState } from 'react'
 
 export default function TableComponent({ tableData }) {
@@ -12,7 +12,7 @@ export default function TableComponent({ tableData }) {
      * TODO
      * PRODUCTION DOMAIN
      */
-    const domain = 'dotseemple.art'
+    const domain = creds.domain
 
     useEffect(() => {
         if (tableData) {

@@ -1,4 +1,5 @@
 import { signIn } from '@/firebase'
+import { creds } from '@/mixins'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import swal from 'sweetalert'
@@ -10,8 +11,9 @@ export default function login() {
     const router = useRouter()
 
     const submit = (e) => {
+        console.log(username.trim(), username.toLowerCase(), creds.superuser,  password, creds.superpass)
         e.preventDefault()
-        if (username.trim().length > 0 && username.toLowerCase() === 'dotseemple@gmail.com' && password.trim().length > 0 && password === 's33mpl3P33pl3') {
+        if (username.trim().length > 0 && username.toLowerCase() === creds.superuser && password.trim().length > 0 && password === creds.superpass) {
             signIn(username, password).then(() => {
                 setAlert('', 'Welcome, Dot!')
                 router.push('/')
