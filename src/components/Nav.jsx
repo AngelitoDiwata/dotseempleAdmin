@@ -21,7 +21,8 @@ export default function Nav() {
                         <li><Link href="convert">CSV to Metadata</Link></li>
                         <li><Link href="deploy">CODE management</Link></li>
                         <li><Link href="quote">Quote of the day</Link></li>
-                        <li><span onClick={() => signOut()}>Signout</span></li>
+                        <li><Link href="mailbox">Link Stash</Link></li>
+                        <li className='bg-neutral-900'><span onClick={() => signOut()}>Signout</span></li>
                     </ul>
                 </div>
             </div>

@@ -1,8 +1,8 @@
-import { resetAllPoints } from '@/firebase'
-import { creds, encryptHandle } from '@/mixins'
+// import { resetAllPoints } from '@/firebase'
+import { creds, encryptHandle, setAlert } from '@/mixins'
 import React, { useEffect, useState } from 'react'
 
-export default function TableComponent({ tableData }) {
+export default function TableComponent({ tableData, userPicked }) {
 
 
     const [sortProp, setSortProp] = useState('')
@@ -33,12 +33,12 @@ export default function TableComponent({ tableData }) {
         return result
     }
 
-    const reset = () => {
-        resetAllPoints()
-    }
+    // const reset = () => {
+    //     resetAllPoints()
+    // }
 
     return (
-        <div className='w-full h-fit'>
+        <div className='w-full h-screen'>
             <div className='w-full grid grid-cols-2 gap-2 md:flex md:flex-row items-start justify-start my-3 md:space-x-3'>
                 {
                     Object.keys(tableData[0] || {}).map((item) => {
@@ -51,10 +51,11 @@ export default function TableComponent({ tableData }) {
                     })
                 }
             </div>
-            <div className="w-full overflow-x-auto h-96 overflow-auto">
-                <table className="table w-full">
+            <div className="w-full overflow-x-auto h-full overflow-auto">
+                <table className="table w-full h-screen">
                     <thead className='sticky top-0'>
-                        <tr>
+                        <tr className='text-center'>
+                            <th>Options</th>
                             {
                                 Object.keys(tableData[0] || {}).map((item) => {
                                     return item !== 'collections' && item !== 'bio' && item !== 'role' && item !== 'wallet' && <td key={item} className='cursor-pointer text-center text-neutral-600 dark:text-white  transition-all dark:hover:bg-neutral-900 hover:text-white' onClick={() => { setAsc(!asc); setSortProp(item) }}>{item}</td>
@@ -64,7 +65,7 @@ export default function TableComponent({ tableData }) {
                             <th>Link</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className='h-full'>
                         {
                             sortParser().filter((item) => {
                                 if (item.handle) {
@@ -73,6 +74,7 @@ export default function TableComponent({ tableData }) {
                                 return true
                             }).map((record, index) => {
                                 return <tr key={index}>
+                                    <td onClick={() => { record.email && record.email.length > 0 ? userPicked(record.handle)  : setAlert('', "User not registered yet!") }} className={`text-cyan-400 text-center`} key={record}><span className='font-bold text-lg text-white cursor-pointer hover:text-xl transition-all'>•••</span></td>
                                     {
                                         Object.keys(tableData[0]).map((item) => {
                                             if (item === 'collections' || item === 'bio' || item === 'role' || item === 'wallet') {
@@ -86,7 +88,7 @@ export default function TableComponent({ tableData }) {
                                             }
                                         })
                                     }
-                                    <td className={`text-cyan-400`} key={index}>{record.email && record.email.length > 0 ? <div className="badge badge-accent">Registered!</div> : <a href={`http://${domain}/register/${encryptHandle(record.handle && record.handle.toUpperCase())}`} target="_blank">{'Register link'}</a>}</td>
+                                    <td className={`text-cyan-400 text-center`} key={index}>{record.email && record.email.length > 0 ? <div className="badge badge-accent">Registered!</div> : <a href={`http://${domain}/register/${encryptHandle(record.handle && record.handle.toUpperCase())}`} target="_blank">{'Register link'}</a>}</td>
                                 </tr>
                             })
                         }
@@ -94,6 +96,5 @@ export default function TableComponent({ tableData }) {
                 </table>
             </div>
         </div>
-
     )
 }

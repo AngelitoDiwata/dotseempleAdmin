@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
-import {get, getDatabase, onValue, ref, update } from "firebase/database"
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth"
+import { equalTo, get, getDatabase, onValue, orderByChild, query, ref, update } from "firebase/database"
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth"
+import { setRef } from "@mui/material";
 
 /**
  * PROD CONFIG
@@ -38,6 +39,11 @@ export const db = getDatabase(app)
 export const auth = getAuth(app)
 
 
+export function getUserByHandle(handle) {
+    return get(query(ref(db, '/data'), orderByChild('handle'), equalTo(handle.toUpperCase())))
+}
+
+
 export const resetAllPoints = () => {
     onValue(ref(db), (snapshot) => {
         const res = snapshot.val();
@@ -57,4 +63,12 @@ export async function signIn(email, password) {
 
 export async function userSignout() {
     return await signOut(auth)
+}
+
+export async function incentivize(data) {
+    return await (update(ref(db, `data/${data.uuid}/`), { connections: data.collections.length, collections: data.collections }))
+}
+
+export async function updateStatus(data) {
+    return await (update(ref(db, `data/${data.uuid}/linkEntry`), { status: data.status }))
 }
