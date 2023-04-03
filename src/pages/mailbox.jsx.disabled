@@ -33,13 +33,12 @@ export default function mailbox() {
         }
     }
 
-
-
     useEffect(() => {
         if (user !== null) { checkIfValidAdmin(user) } else {
             router.push('/login')
         }
     }, [user])
+    
     return (
         <>
             <Head>

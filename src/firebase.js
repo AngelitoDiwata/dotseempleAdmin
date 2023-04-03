@@ -72,3 +72,11 @@ export async function incentivize(data) {
 export async function updateStatus(data) {
     return await (update(ref(db, `data/${data.uuid}/linkEntry`), { status: data.status }))
 }
+
+export async function getDrops() {
+    return await get(ref(db, '/drops'))
+}
+
+export async function setDROP(data) {
+    return await (update(ref(db, `/drops/${data.uuid}`), { title: data.title, ttl: data.ttl }))
+}

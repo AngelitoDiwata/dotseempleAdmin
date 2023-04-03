@@ -23,6 +23,7 @@
     "react-dom": "18.2.0",
     "react-firebase-hooks": "^5.1.1",
     "react-sortable-table": "^1.4.0",
+    "react-uuid": "^2.0.0",
     "styled-components": "^5.3.8",
     "sweetalert": "^2.1.2"
   },

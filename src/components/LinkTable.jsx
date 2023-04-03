@@ -32,9 +32,6 @@ export default function LinkTable({ listData }) {
     }
 
     const msToTime = (ms) => {
-        let seconds = (ms / 1000).toFixed(1);
-        let minutes = (ms / (1000 * 60)).toFixed(1);
-        let hours = (ms / (1000 * 60 * 60)).toFixed(1);
         let days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
         return days
     }
@@ -55,7 +52,7 @@ export default function LinkTable({ listData }) {
                     {
 
                         listData.filter((item) => {
-                            return item.status === 'PENDING' && msToTime(new Date(new Date(item.date).setDate(new Date(item.date).getDate() + 2)) - new Date(item.date)) >= 2
+                            return item.status === 'PENDING' && msToTime(new Date(new Date(item.date).setDate(new Date(item.date).getDate() + 2)) - new Date()) >= 2
                         }).map((item, ind) => {
                             return <tr key={ind}>
                                 {
@@ -69,7 +66,7 @@ export default function LinkTable({ listData }) {
                                         }
                                     })
                                 }
-                                <td className='bg-neutral-900 text-center flex flex-col items-center justify-center space-y-2'>
+                                <td key={item} className='bg-neutral-900 text-center flex flex-col items-center justify-center space-y-2'>
                                     <button disabled={item.status !== 'PENDING'} onClick={() => acceptEntry(item.handle)} className="btn btn-outline btn-sm w-full">Approve</button>
                                     <button disabled={item.status !== 'PENDING'} onClick={() => revokeEntry(item.handle)} className="btn btn-outline btn-sm w-full">Revoke</button></td>
                             </tr>

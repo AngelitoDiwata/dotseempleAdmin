@@ -15,7 +15,7 @@ export function decryptHandle(handle) {
 }
 
 export const creds = {
-    domain: process.env.DEV_ENV ? "beta.dotseemple.art" : "dotseemple.art",
+    domain: process.env.DEV_ENV ? "dotseemple-admin-dev.vercel.app" : "dotseemple.art",
     superuser: "dotseemple@gmail.com",
     superpass: process.env.DEV_ENV ? "password123" : "s33mpl3P33pl3"
 }

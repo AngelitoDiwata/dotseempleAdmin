@@ -2,6 +2,7 @@ import { db, incentivize } from '@/firebase';
 import { setAlert } from '@/mixins';
 import { onValue, ref } from 'firebase/database';
 import React, { useEffect, useState } from 'react'
+import uuid from 'react-uuid';
 
 export default function Modal({ user, modalClose, callBack = () => {} }) {
 
@@ -29,7 +30,7 @@ export default function Modal({ user, modalClose, callBack = () => {} }) {
         const submitData = {
             uuid: user.uuid,
             collections: [...collection,...[...Array(parseInt(amount)).keys()].map(() => {
-                return window.crypto.randomUUID()
+                return uuid()
             })]
         }
         incentivize(submitData).then(() => {

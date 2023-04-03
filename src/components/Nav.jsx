@@ -2,13 +2,14 @@ import { userSignout } from '@/firebase'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
+import NavDrop from './NavDrop'
 
 export default function Nav() {
     const router = useRouter()
     const signOut = () => {
         userSignout().then(() => {
             router.push('/login')
-        }) 
+        })
     }
     return (
         <div className="navbar text-white bg-black">
@@ -21,16 +22,14 @@ export default function Nav() {
                         <li><Link href="convert">CSV to Metadata</Link></li>
                         <li><Link href="deploy">CODE management</Link></li>
                         <li><Link href="quote">Quote of the day</Link></li>
-                        <li><Link href="mailbox">Link Stash</Link></li>
+                        {/* <li><Link href="mailbox">Link Stash</Link></li> */}
+                        <li><Link href="drop">DROP STASH</Link></li>
                         <li className='bg-neutral-900'><span onClick={() => signOut()}>Signout</span></li>
                     </ul>
                 </div>
-            </div>
-            <div className="navbar-center">
                 <Link href="/" className="btn btn-ghost normal-case text-xl">⦿ Admin</Link>
             </div>
-            <div className="navbar-end">
-            </div>
+            <NavDrop />
         </div>
     )
 }

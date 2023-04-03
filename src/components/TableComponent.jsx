@@ -33,10 +33,6 @@ export default function TableComponent({ tableData, userPicked }) {
         return result
     }
 
-    // const reset = () => {
-    //     resetAllPoints()
-    // }
-
     return (
         <div className='w-full h-screen'>
             <div className='w-full grid grid-cols-2 gap-2 md:flex md:flex-row items-start justify-start my-3 md:space-x-3'>
@@ -77,7 +73,7 @@ export default function TableComponent({ tableData, userPicked }) {
                                     <td onClick={() => { record.email && record.email.length > 0 ? userPicked(record.handle)  : setAlert('', "User not registered yet!") }} className={`text-cyan-400 text-center`} key={record}><span className='font-bold text-lg text-white cursor-pointer hover:text-xl transition-all'>•••</span></td>
                                     {
                                         Object.keys(tableData[0]).map((item) => {
-                                            if (item === 'collections' || item === 'bio' || item === 'role' || item === 'wallet') {
+                                            if (item === 'collections' || item === 'bio' || item === 'role' || item === 'wallet' || item === 'linkEntry') {
                                                 return null
                                             } else if (item === 'handle') {
                                                 return <td className={`hover:font-bold hover:underline text-cyan-400 text-left transition-all ${item === 'connections' ? `font-bold text-2xl ${record[item] < 1 ? 'text-rose-600' : 'text-amber-500'}` : 'font-thin text-sm tracking-widest'}`} key={item}><a href={`https://twitter.com/${record[item].split('@')[1]}`} target="_blank">{record[item]}</a></td>
