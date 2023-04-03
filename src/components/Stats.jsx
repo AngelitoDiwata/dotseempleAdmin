@@ -68,7 +68,7 @@ export default function Stats({ list, codes }) {
                     ⌘
                 </div>
                 <div className="stat-title">CODES launched</div>
-                <div className="stat-value text-netral-800 dark:text-white">{(codes.length).toString()}</div>
+                <div className="stat-value text-netral-800 dark:text-white">{(codes.length + 21).toString()}</div>
                 <div className="stat-desc">so far</div>
             </div>
 
