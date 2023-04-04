@@ -11,7 +11,6 @@ export default function login() {
     const router = useRouter()
 
     const submit = (e) => {
-        console.log(username.trim(), username.toLowerCase(), creds.superuser,  password, creds.superpass)
         e.preventDefault()
         if (username.trim().length > 0 && username.toLowerCase() === creds.superuser && password.trim().length > 0 && password === creds.superpass) {
             signIn(username, password).then(() => {
