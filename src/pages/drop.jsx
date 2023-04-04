@@ -31,7 +31,7 @@ export default function drop() {
                 <Nav />
                 <div className='p-3 h-screen w-full lg:w-11/12 m-auto' >
                     <h1>Current Drop: <span className='font-bold text-xl tracking-widest text-white'>{title}</span></h1>
-                    <p className='py-3'>View submitted tweet link entries of users that can be approved for points</p>
+                    <p className='py-3'>View handle and wallet address of users participated in the current drop.</p>
                     <DropTable tableData={drops} />
                 </div>
             </main>
