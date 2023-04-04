@@ -7,6 +7,7 @@ import swal from 'sweetalert';
 import CodeTable from '@/components/CodeTable';
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useRouter } from 'next/router';
+import { creds } from '@/mixins';
 
 export default function DotSeempleCodes() {
     const [validCodes, setValidCodes] = useState([])
@@ -48,7 +49,7 @@ export default function DotSeempleCodes() {
 
 
     const checkIfValidAdmin = (user) => {
-        if (user.email !== 'dotseemple@gmail.com') {
+        if (user.email !== creds.superuser) {
             router.push('/login')
         }
     }

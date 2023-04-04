@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { auth, db } from '@/firebase'
+import { auth, db, getUserByHandle } from '@/firebase'
 import { ref, onValue } from "firebase/database";
 import TableComponent from '@/components/TableComponent';
 import { useState, useEffect } from 'react';
@@ -7,11 +7,15 @@ import Stats from '@/components/Stats';
 import Nav from '@/components/Nav';
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useRouter } from 'next/router';
+import { creds } from '@/mixins';
+import Modal from '@/components/Modal';
 
 export default function Home() {
 
   const [list, setList] = useState([{}])
   const [codes, setCodes] = useState([{}])
+  const [modalVisible, setModalVisible] = useState(false)
+  const [selectedUser, setSelectedUser] = useState({})
   const [user] = useAuthState(auth)
   const router = useRouter()
 
@@ -35,9 +39,16 @@ export default function Home() {
   }, []);
 
   const checkIfValidAdmin = (user) => {
-    if (user.email !== 'dotseemple@gmail.com') {
+    if (user.email !== creds.superuser) {
       router.push('/login')
     }
+  }
+
+  const getModalDetails = (handle) => {
+      getUserByHandle(handle).then((data) => {
+        setSelectedUser(Object.values(data.val())[0])
+        setModalVisible(data.val() !== null)
+      })
   }
 
   useEffect(() => {
@@ -54,14 +65,18 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className='w-full h-screen bg-black text-white'>
+      {
+        modalVisible ?
+      <Modal user={selectedUser} modalClose={() => setModalVisible(false)} /> :  <main className='w-full h-screen bg-black text-white'>
         <Nav />
-        <div className='p-3' >
+        <div className='p-3 h-screen' >
 
           <Stats codes={codes} list={list} />
-          {list && <TableComponent tableData={list} />}
+          {list && <TableComponent userPicked={(value) => getModalDetails(value)} tableData={list} />}
         </div>
       </main>
+      }
+     
     </>
   )
 }
