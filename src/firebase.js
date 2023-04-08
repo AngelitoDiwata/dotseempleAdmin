@@ -34,7 +34,7 @@ const firebaseConfig_dev = {
 
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig_prod);
+const app = initializeApp(firebaseConfig_dev);
 export const db = getDatabase(app)
 export const auth = getAuth(app)
 

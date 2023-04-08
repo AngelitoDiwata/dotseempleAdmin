@@ -17,7 +17,7 @@ export function decryptHandle(handle) {
 export const creds = {
     domain: "dotseemple.art",
     superuser: "dotseemple@gmail.com",
-    superpass: "s33mpl3P33pl3"
+    superpass: "password123"
 }
 
 

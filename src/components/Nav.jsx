@@ -22,7 +22,7 @@ export default function Nav() {
                         <li><Link href="convert">CSV to Metadata</Link></li>
                         <li><Link href="deploy">CODE management</Link></li>
                         <li><Link href="quote">Quote of the day</Link></li>
-                        {/* <li><Link href="mailbox">Link Stash</Link></li> */}
+                        <li><Link href="mailbox">Link Stash</Link></li>
                         <li><Link href="drop">DROP STASH</Link></li>
                         <li className='bg-neutral-900'><span onClick={() => signOut()}>Signout</span></li>
                     </ul>
