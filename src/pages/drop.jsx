@@ -13,8 +13,8 @@ export default function drop() {
         getDrops().then((snap) => {
             const res = snap.val()
             if (res) {
-                setTitle(Object.values(res).at(-1).title)
-                setDrops(Object.values(res).at(-1).participants || [])
+                setTitle(Object.values(res).sort((a, b) => new Date(a.ttl) - new Date(b.ttl)).at(-1).title)
+                setDrops(Object.values(res).sort((a, b) => new Date(a.ttl) - new Date(b.ttl)).at(-1).participants || [])
             }
         })
     })
