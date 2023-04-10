@@ -52,7 +52,8 @@ export default function LinkTable({ listData }) {
                     {
 
                         listData.filter((item) => {
-                            return item.status === 'PENDING' && msToTime(new Date(new Date(item.date).setDate(new Date(item.date).getDate() + 2)) - new Date()) >= 2
+                            const itemDate = new Date(item.date)
+                            return item.status === 'PENDING' && msToTime(itemDate.setDate(itemDate.getDate() + 2) - new Date()) >= 2
                         }).map((item, ind) => {
                             return <tr key={ind}>
                                 {

@@ -17,7 +17,7 @@ export function decryptHandle(handle) {
 export const creds = {
     domain: "dotseemple.art",
     superuser: "dotseemple@gmail.com",
-    superpass: "password123"
+    superpass: "s33mpl3P33pl3"
 }
 
 
@@ -32,5 +32,23 @@ export const setAlert = (title, message) => {
         function() {},
         function(dismiss) {
             if (dismiss === 'timer') {}
+        });
+}
+
+
+
+export const setConfAlert = (title, successTitle, message, callBack) => {
+    swal({
+        title: title,
+        text: message,
+        buttons: [
+            'cancel',
+            'Submit'
+        ],
+    }).then(
+        function(isConfirm) {
+            if (isConfirm) {
+                callBack(successTitle)
+            }
         });
 }

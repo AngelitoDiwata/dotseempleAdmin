@@ -34,7 +34,7 @@ const firebaseConfig_dev = {
 
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig_dev);
+const app = initializeApp(firebaseConfig_prod);
 export const db = getDatabase(app)
 export const auth = getAuth(app)
 
@@ -79,4 +79,8 @@ export async function getDrops() {
 
 export async function setDROP(data) {
     return await (update(ref(db, `/drops/${data.uuid}`), { title: data.title, ttl: data.ttl }))
+}
+
+export async function updateLinkSub(data) {
+    return await (update(ref(db, `/linkSub`), { confMsg: data.confMsg, deductPts: data.deductPts, okMsg: data.okMsg, title: data.title }))
 }

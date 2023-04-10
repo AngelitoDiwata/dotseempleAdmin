@@ -6,7 +6,8 @@ export default function ExpDefinition({ keyName, date }) {
 
     useEffect(() => {
         setInterval(() => {
-            setTTL(msToTime(new Date(new Date(date).setDate(new Date(date).getDate() + 2)) - new Date(date)))
+            const setDate = new Date(date)
+            setTTL(msToTime(setDate.setDate(setDate.getDate() + 2) - new Date()))
         }, 1000);
     }, [])
 
