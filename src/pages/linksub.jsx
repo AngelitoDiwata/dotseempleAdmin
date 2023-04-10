@@ -60,9 +60,9 @@ export default function LinkSubContent() {
                     <h1>Link content manager</h1>
                     <p>Change the contents of the link submission field</p>
                     <div className='flex flex-col md:flex-row items-center justify-start w-full m-auto mt-5'>
-                        <div className='w-2/3 md:w-fit m-auto flex flex-col items-center justify-center'>
+                        <div className='w-full md:w-fit m-auto flex flex-col items-center justify-center'>
                             <span className='my-5'>Demo:</span>
-                            <div className="indicator w-11/12 md:w-80">
+                            <div className="indicator w-full md:w-80">
                                 <div className='text-white flex flex-col items-end justify-center space-y-5 w-full m-auto border border-dashed p-3 rounded-lg'>
                                     <div className='flex flex-col items-center justify-center space-y-1 w-full'>
                                         <div className='w-full flex flex-row items-center text-center justify-start space-x-3'>
