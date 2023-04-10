@@ -34,3 +34,21 @@ export const setAlert = (title, message) => {
             if (dismiss === 'timer') {}
         });
 }
+
+
+
+export const setConfAlert = (title, successTitle, message, callBack) => {
+    swal({
+        title: title,
+        text: message,
+        buttons: [
+            'cancel',
+            'Submit'
+        ],
+    }).then(
+        function(isConfirm) {
+            if (isConfirm) {
+                callBack(successTitle)
+            }
+        });
+}

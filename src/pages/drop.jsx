@@ -2,22 +2,44 @@ import DropTable from '@/components/DropTable'
 import Nav from '@/components/Nav'
 import { getDrops } from '@/firebase'
 import Head from 'next/head'
+import { auth } from '@/firebase'
 import React, { useEffect, useState } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useRouter } from 'next/router';
+import { creds } from '@/mixins';
+import NavDrop from '@/components/NavDrop'
 
 export default function drop() {
 
-    const [drops, setDrops] = useState({})
+    const [drops, setDrops] = useState([])
     const [title, setTitle] = useState('')
+    const [user] = useAuthState(auth)
+    const router = useRouter()
 
     useEffect(() => {
         getDrops().then((snap) => {
             const res = snap.val()
             if (res) {
-                setTitle(Object.values(res).sort((a, b) => new Date(a.ttl) - new Date(b.ttl)).at(-1).title)
-                setDrops(Object.values(res).sort((a, b) => new Date(a.ttl) - new Date(b.ttl)).at(-1).participants || [])
+                const currentDrop = Object.values(res).sort((a, b) => new Date(a.ttl) - new Date(b.ttl)).at(-1)
+                if (new Date(currentDrop.ttl) >= new Date()) {
+                    setTitle(currentDrop.title)
+                    setDrops(currentDrop.participants || [])
+                }
             }
         })
-    })
+    }, [])
+
+    const checkIfValidAdmin = (user) => {
+        if (user.email !== creds.superuser) {
+            router.push('/login')
+        }
+    }
+
+    useEffect(() => {
+        if (user !== null) { checkIfValidAdmin(user) } else {
+            router.push('/login')
+        }
+    }, [user])
 
     return (
         <>
@@ -30,9 +52,14 @@ export default function drop() {
             <main className='w-full h-screen bg-black text-white'>
                 <Nav />
                 <div className='p-3 h-screen w-full lg:w-11/12 m-auto' >
-                    <h1>Current Drop: <span className='font-bold text-xl tracking-widest text-white'>{title}</span></h1>
-                    <p className='py-3'>View handle and wallet address of users participated in the current drop.</p>
-                    <DropTable tableData={drops} />
+                    <NavDrop />
+                    {
+                        title !== '' && <div>
+                            <h1>Current Drop: <span className='font-bold text-xl tracking-widest text-white'>{title}</span></h1>
+                            <p className='py-3'>View handle and wallet address of users participated in the current drop.</p>
+                            <DropTable tableData={drops} />
+                        </div>
+                    }
                 </div>
             </main>
         </>

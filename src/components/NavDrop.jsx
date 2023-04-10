@@ -59,13 +59,13 @@ export default function NavDrop() {
     }
 
     return (
-        <div className="navbar-end lg:flex flex-row justify-end items-center space-x-2 hidden lg:visible">
-            <span className='text-xs'> Next Drop: {hasCurrentDrop && nextDrop}</span>
+        <div className="w-fit lg:flex flex-row justify-end items-center space-x-2 my-5">
+            <span className='text-xs'>Create Next Drop: {hasCurrentDrop && nextDrop}</span>
             {
                 !hasCurrentDrop && <div className='flex flex-row space-x-3'>
-                    <input value={title} onChange={(e) => setTitle(e.target.value)} type="text" placeholder="Drop title" className="w-1/3 input input-sm max-w-xs" />
-                    <input value={ttl} onChange={(e) => setTTL(e.target.value)} type="datetime-local" placeholder="Type here" className="w-1/2 input input-sm max-w-xs" />
-                    <button onClick={DROP} className="btn btn-outline btn-sm w-1/8">DROP</button>
+                    <input value={title} onChange={(e) => setTitle(e.target.value)} type="text" placeholder="Drop title" className="w-1/2 input input-lg max-w-xs" />
+                    <input value={ttl} onChange={(e) => setTTL(e.target.value)} type="datetime-local" placeholder="Type here" className="w-1/2 input input-lg max-w-xs" />
+                    <button onClick={DROP} className="btn btn-outline btn-lg w-1/8">DROP</button>
                 </div>
             }
         </div>

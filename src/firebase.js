@@ -80,3 +80,7 @@ export async function getDrops() {
 export async function setDROP(data) {
     return await (update(ref(db, `/drops/${data.uuid}`), { title: data.title, ttl: data.ttl }))
 }
+
+export async function updateLinkSub(data) {
+    return await (update(ref(db, `/linkSub`), { confMsg: data.confMsg, deductPts: data.deductPts, okMsg: data.okMsg, title: data.title }))
+}

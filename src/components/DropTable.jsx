@@ -12,7 +12,7 @@ export default function DropTable({ tableData }) {
                 <thead>
                     <tr>
                         {
-                            Object.keys(list[0] || {sample: null}).map((title) => {
+                            Object.keys(list[0] || {['']: null}).map((title) => {
                                 return <th>{title}</th>
                             })
                         }
