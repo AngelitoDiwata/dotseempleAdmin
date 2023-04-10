@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { auth, updateLinkSub } from '@/firebase'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useRouter } from 'next/router';
+import ReactMarkdown from 'react-markdown'
 
 export default function LinkSubContent() {
     const [title, setTitle] = useState('')
@@ -65,7 +66,7 @@ export default function LinkSubContent() {
                                 <div className='text-white flex flex-col items-end justify-center space-y-5 w-full m-auto border border-dashed p-3 rounded-lg'>
                                     <div className='flex flex-col items-center justify-center space-y-1 w-full'>
                                         <div className='w-full flex flex-row items-center text-center justify-start space-x-3'>
-                                            <span className='text-base text-center w-full'>{title}</span>
+                                            <span className='text-base text-center w-full'><ReactMarkdown>{title}</ReactMarkdown></span>
                                         </div>
                                         <input type="text" placeholder="https://twitter/com" className="input text-base font-normal border-white focus:outline-none hover:outline-none bg-black w-full" />
                                     </div>
@@ -89,7 +90,7 @@ export default function LinkSubContent() {
                             </div>
                             <div className='flex flex-col items-start justify-start space-y-2'>
                                 <span>Deduction points</span>
-                                <input onChange={(e) => setDeductPts(e.target.value)} type="number" placeholder="points" className="input h-full w-full" />
+                                <input onChange={(e) => setDeductPts(e.target.value)} type="number" min={0} placeholder="points" className="input h-full w-full" />
                             </div>
                             <div></div>
                             <div>
