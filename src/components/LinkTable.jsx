@@ -4,11 +4,18 @@ import React, { useEffect, useState } from 'react'
 import ExpDefinition from './ExpDefinition'
 import Modal from './Modal'
 
-export default function LinkTable({ listData }) {
+export default function LinkTable({ listData, setTotal }) {
 
     const [modalVisible, setModalVisible] = useState(false)
     const [currentUser, setCurrentUser] = useState({})
     const [isAccept, setIsAccept] = useState(false)
+
+    useEffect(() => {
+        setTotal(listData.filter((item) => {
+            const itemDate = new Date(item.date)
+            return item.status === 'PENDING' && msToTime(itemDate.setDate(itemDate.getDate() + 2) - new Date()) >= 1
+        }).length)
+    }, [listData])
     const acceptEntry = (handle) => {
         getUserByHandle(handle).then((data) => {
             const res = data.val()
@@ -53,7 +60,7 @@ export default function LinkTable({ listData }) {
 
                         listData.filter((item) => {
                             const itemDate = new Date(item.date)
-                            return item.status === 'PENDING' && msToTime(itemDate.setDate(itemDate.getDate() + 2) - new Date()) >= 2
+                            return item.status === 'PENDING' && msToTime(itemDate.setDate(itemDate.getDate() + 2) - new Date()) >= 1
                         }).map((item, ind) => {
                             return <tr key={ind}>
                                 {

@@ -10,6 +10,7 @@ import { creds } from '@/mixins';
 
 export default function mailbox() {
     const [list, setList] = useState([{}])
+    const [total, setTotal] = useState(0)
     const [user] = useAuthState(auth)
     const router = useRouter()
     useEffect(() => {
@@ -51,8 +52,9 @@ export default function mailbox() {
                 <Nav />
                 <div className='p-3 h-screen w-full lg:w-11/12 m-auto' >
                     <h1>Mailbox</h1>
+                    <h3>Total of {total} entries</h3>
                     <p className='py-3'>View submitted tweet link entries of users that can be approved for points</p>
-                    <LinkTable listData={list} />
+                    <LinkTable setTotal={(val) => setTotal(val)} listData={list} />
                 </div>
             </main>
         </>
