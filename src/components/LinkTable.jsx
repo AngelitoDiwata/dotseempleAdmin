@@ -13,7 +13,7 @@ export default function LinkTable({ listData, setTotal }) {
     useEffect(() => {
         setTotal(listData.filter((item) => {
             const itemDate = new Date(item.date)
-            return item.status === 'PENDING' && msToTime(itemDate.setDate(itemDate.getDate() + 2) - new Date()) >= 1
+            return item.status === 'PENDING' && msToTime(itemDate.setDate(itemDate.getDate() + 2) - new Date()) >= 0.0
         }).length)
     }, [listData])
     const acceptEntry = (handle) => {
@@ -60,7 +60,7 @@ export default function LinkTable({ listData, setTotal }) {
 
                         listData.filter((item) => {
                             const itemDate = new Date(item.date)
-                            return item.status === 'PENDING' && msToTime(itemDate.setDate(itemDate.getDate() + 2) - new Date()) >= 1
+                            return item.status === 'PENDING' && msToTime(itemDate.setDate(itemDate.getDate() + 2) - new Date()) >= 0.0
                         }).map((item, ind) => {
                             return <tr key={ind}>
                                 {
