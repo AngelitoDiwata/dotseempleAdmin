@@ -4,7 +4,7 @@ import { onValue, ref } from 'firebase/database';
 import React, { useEffect, useState } from 'react'
 import uuid from 'react-uuid';
 
-export default function Modal({ user, modalClose, callBack = () => {} }) {
+export default function Modal({ user, modalClose, callBack = () => { } }) {
 
     const [userDetails, setUserDetails] = useState({})
     const [amount, setAmount] = useState(0)
@@ -20,24 +20,28 @@ export default function Modal({ user, modalClose, callBack = () => {} }) {
     }, [])
 
     useEffect(() => {
-        if(!userDetails && !userDetails.email) {
+        if (!userDetails && !userDetails.email) {
             modalClose()
         }
     }, [userDetails])
 
     const onSubmit = () => {
-        const collection = user.collections ? user.collections :[] 
-        const submitData = {
-            uuid: user.uuid,
-            collections: [...collection,...[...Array(parseInt(amount)).keys()].map(() => {
-                return uuid()
-            })]
+        if (amount > 0) {
+            const collection = user.collections ? user.collections : []
+            const submitData = {
+                uuid: user.uuid,
+                collections: [...collection, ...[...Array(parseInt(amount)).keys()].map(() => {
+                    return uuid()
+                })]
+            }
+            incentivize(submitData).then(() => {
+                callBack()
+                setAlert('', `successfully added ${amount} points to ${user.handle}`)
+                modalClose()
+            })
+        } else {
+            setAlert('', 'Either give them points, or let them rot.')
         }
-        incentivize(submitData).then(() => {
-            callBack()
-            setAlert('', `successfully added ${amount} points to ${user.handle}`)
-            modalClose()
-        })
     }
 
     return (
