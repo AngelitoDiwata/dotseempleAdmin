@@ -19,7 +19,7 @@ export default function mailbox() {
             const res = snapshot.val();
             try {
                 res.data !== undefined ? Object.values(res.data).map((entry) => {
-                    const cleanEntry = { handle: entry.handle, ...entry.linkEntry }
+                    const cleanEntry = { handle: entry.handle, wallet: entry.wallet, ...entry.linkEntry }
                     entry.linkEntry && setList((oldArray) => [...oldArray, cleanEntry]);
                 }) : setList([])
             } catch (_) {

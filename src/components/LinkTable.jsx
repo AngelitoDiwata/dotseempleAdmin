@@ -49,6 +49,7 @@ export default function LinkTable({ listData, setTotal }) {
                 <thead>
                     <tr>
                         <th>Handle</th>
+                        <th>Wallet</th>
                         <th>Date</th>
                         <th>Link</th>
                         <th>Status</th>
