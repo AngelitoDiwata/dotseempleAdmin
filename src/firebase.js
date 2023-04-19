@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { equalTo, get, getDatabase, onValue, orderByChild, query, ref, update } from "firebase/database"
+import { equalTo, set, get, getDatabase, onValue, orderByChild, query, ref, update } from "firebase/database"
 import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth"
 import { setRef } from "@mui/material";
 
@@ -34,7 +34,7 @@ const firebaseConfig_dev = {
 
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig_prod);
+const app = initializeApp(firebaseConfig_dev);
 export const db = getDatabase(app)
 export const auth = getAuth(app)
 
@@ -83,4 +83,16 @@ export async function setDROP(data) {
 
 export async function updateLinkSub(data) {
     return await (update(ref(db, `/linkSub`), { confMsg: data.confMsg, deductPts: data.deductPts, okMsg: data.okMsg, title: data.title }))
+}
+
+export async function getCampaigns() {
+    return await get(ref(db, '/campaigns'))
+}
+
+export async function addCampagin(data) {
+    return await (set(ref(db, `/campaigns/${data.uuid}`), { id: data.uuid, name: data.name, title: data.title, end_date: data.ttl, confirm_message: data.confMsg, success_message: data.okMsg }))
+}
+
+export async function updateCampagin(data) {
+    return await (update(ref(db, `/campaigns/${data.uuid}`), { id: data.uuid, name: data.name, title: data.title, end_date: data.ttl, confirm_message: data.confMsg, success_message: data.okMsg }))
 }
