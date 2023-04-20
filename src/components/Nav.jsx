@@ -22,8 +22,8 @@ export default function Nav() {
                         <li><Link href="convert"><span className='text-lg'>📄</span>CSV to Metadata</Link></li>
                         <li><Link href="deploy"><span className='text-lg'>💻</span>CODE management</Link></li>
                         <li><Link href="quote"><span className='text-lg'>📜</span>Quote of the day</Link></li>
-                        <li><Link href="linksub"><span className='text-lg'>🌐</span>Link Sub CMS</Link></li>
-                        <li><Link href="mailbox"><span className='text-lg'>📬</span>Mailbox</Link></li>
+                        <li><Link href="campaigns"><span className='text-lg'>🌐</span>Campaigns</Link></li>
+                        {/* <li><Link href="mailbox"><span className='text-lg'>📬</span>Mailbox</Link></li> */}
                         <li><Link href="drop"><span className='text-lg'>⬇️</span>DROP STASH</Link></li>
                         <li className='bg-neutral-900'><span onClick={() => signOut()}>Signout</span></li>
                     </ul>

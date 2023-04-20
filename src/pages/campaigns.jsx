@@ -4,11 +4,33 @@ import Nav from '@/components/Nav'
 import { getCampaigns } from '@/firebase'
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
+import { auth } from '@/firebase'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useRouter } from 'next/router';
+import { creds } from '@/mixins';
 
 export default function campaigns() {
+
+    const [user] = useAuthState(auth)
+    const router = useRouter()
+
+
     const [campaignModalVisible, setCampaignModalVisible] = useState(false)
     const [campaignList, setCampaignList] = useState([{}])
     const [selectedCampaign, setSelectedCampaign] = useState(null)
+
+        
+    const checkIfValidAdmin = (user) => {
+        if (user.email !== creds.superuser) {
+            router.push('/login')
+        }
+    }
+
+    useEffect(() => {
+        if (user !== null) { checkIfValidAdmin(user) } else {
+            router.push('/login')
+        }
+    }, [user])
 
     useEffect(() => {
         getCampaigns().then((snap) => {
@@ -27,6 +49,8 @@ export default function campaigns() {
             setCampaignModalVisible(true)
         }
     }, [selectedCampaign])
+
+
     return (
         <>
             <Head>
